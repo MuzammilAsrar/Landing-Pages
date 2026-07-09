@@ -401,7 +401,7 @@ p { margin: 0; }
 .nls-footer a:hover { color: var(--color-accent-deep); }
 
 /* ---------- 17. Reveal animation ---------- */
-.reveal { opacity: 0; transform: translateY(22px); transition: opacity var(--dur-slow) var(--ease-editorial), transform var(--dur-slow) var(--ease-editorial); }
+/* .reveal { opacity: 0; transform: translateY(22px); transition: opacity var(--dur-slow) var(--ease-editorial), transform var(--dur-slow) var(--ease-editorial); } */
 .reveal.is-visible { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
 
