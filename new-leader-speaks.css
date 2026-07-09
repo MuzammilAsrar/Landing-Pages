@@ -1,0 +1,419 @@
+/* =========================================================
+   THE NEW LEADER SPEAKS — Bootcamp Landing Page
+   Standalone stylesheet. Shares design tokens with the main
+   Main Character site (fonts, colors) but has no dependency
+   on style.css, so this page can be moved into WordPress
+   as a single self-contained template.
+
+   1. Reset & tokens
+   2. Base typography
+   3. Layout utilities
+   4. Buttons
+   5. Header
+   6. Hero
+   7. Why This Bootcamp
+   8. Problems
+   9. Transformation
+   10. What's Included
+   11. Timeline
+   12. Testimonials
+   13. About Onyema
+   14. FAQ
+   15. Final CTA
+   16. Footer
+   17. Reveal animation
+   18. Responsive
+   ========================================================= */
+
+/* ---------- 1. Reset & tokens ---------- */
+:root {
+  --color-bg: #FAF6EF;
+  --color-bg-alt: #F1EAE0;
+  --color-surface: #FFFFFF;
+  --color-ink: #1C1A16;
+  --color-ink-soft: #6B6152;
+  --color-ink-faint: #8A8071;
+  --color-accent: #B8925A;
+  --color-accent-deep: #82623A;
+  --color-accent-soft: #E7DAC3;
+  --color-accent-shimmer: linear-gradient(115deg, #82623A 0%, #D7B679 45%, #82623A 100%);
+  --color-line: rgba(28, 26, 22, 0.12);
+  --color-line-strong: rgba(28, 26, 22, 0.22);
+
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --fs-hero: clamp(2.5rem, 5vw + 1rem, 4.75rem);
+  --fs-h2: clamp(2rem, 3.2vw, 3rem);
+  --fs-h3: clamp(1.375rem, 2vw, 1.75rem);
+  --fs-body-lg: clamp(1.0625rem, 0.3vw + 1rem, 1.25rem);
+
+  --radius-sm: 3px;
+  --radius-md: 6px;
+  --space-section: clamp(2.75rem, 5vw, 4.5rem);
+  --dur-fast: 220ms;
+  --dur-med: 480ms;
+  --dur-slow: 900ms;
+  --ease-editorial: cubic-bezier(0.22, 0.61, 0.27, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-ink);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+ul { margin: 0; padding: 0; list-style: none; }
+button { font: inherit; cursor: pointer; }
+
+/* ---------- 2. Base typography ---------- */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.12;
+  margin: 0;
+  color: var(--color-ink);
+}
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); }
+em { font-style: italic; color: var(--color-accent-deep); }
+p { margin: 0; }
+
+.eyebrow {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-accent-deep);
+  margin-bottom: 1rem;
+}
+.eyebrow-invert { color: var(--color-accent); }
+
+.section-lede {
+  font-size: var(--fs-body-lg);
+  color: var(--color-ink-soft);
+  max-width: 60ch;
+}
+
+/* ---------- 3. Layout utilities ---------- */
+.container { max-width: 72rem; margin-inline: auto; padding-inline: clamp(1.25rem, 4vw, 2.5rem); }
+.container--narrow { max-width: 48rem; }
+.section-head { max-width: 42rem; margin-bottom: clamp(2.5rem, 5vw, 3.5rem); }
+.section-head--center { margin-inline: auto; text-align: center; }
+
+/* ---------- 4. Buttons ---------- */
+.btn {
+  --btn-fg: var(--color-bg);
+  --btn-bg: var(--color-ink);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 1.1rem 2.25rem;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--btn-fg);
+  background: var(--btn-bg);
+  border: 1px solid var(--btn-bg);
+  border-radius: 999px;
+  overflow: hidden;
+  transition: transform var(--dur-fast) var(--ease-editorial), box-shadow var(--dur-fast) var(--ease-editorial), border-color var(--dur-fast) var(--ease-editorial);
+}
+.btn::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: var(--color-accent-deep);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-med) var(--ease-editorial);
+  z-index: 0;
+}
+.btn span, .btn svg { position: relative; z-index: 1; }
+.btn:hover::before, .btn:focus-visible::before { transform: scaleX(1); }
+.btn:hover, .btn:focus-visible { border-color: var(--color-accent-deep); box-shadow: 0 16px 32px -16px rgba(28, 26, 22, 0.4); transform: translateY(-2px); }
+.btn svg { width: 1.05rem; height: 1.05rem; transition: transform var(--dur-fast) var(--ease-editorial); }
+.btn:hover svg { transform: translateX(3px); }
+
+.btn-lg { padding: 1.35rem 2.75rem; font-size: 1rem; }
+.btn-invert { --btn-fg: var(--color-ink); --btn-bg: var(--color-bg); }
+.btn-invert::before { background: var(--color-accent); }
+.btn-invert:hover, .btn-invert:focus-visible { border-color: var(--color-accent); color: var(--color-ink); }
+.btn-full { width: 100%; }
+
+.cta-microcopy { margin-top: 0.85rem; font-size: 0.8125rem; color: var(--color-ink-faint); }
+.cta-microcopy--invert { color: rgba(250, 246, 239, 0.6); }
+
+/* Reusable decorative background floaters */
+.nls-floaters { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.nls-floater { position: absolute; color: var(--color-accent); opacity: 0.14; animation: nlsFloat 9s ease-in-out infinite; }
+.nls-floater svg { width: 100%; height: 100%; display: block; }
+.nls-floater--invert { color: var(--color-accent); opacity: 0.16; }
+@keyframes nlsFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@media (max-width: 900px) { .nls-floaters { display: none; } }
+@media (prefers-reduced-motion: reduce) { .nls-floater { animation: none; } }
+
+/* ---------- 5. Header ---------- */
+.nls-header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(250, 246, 239, 0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--color-line);
+}
+.nls-header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 72px;
+}
+.nls-logo {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  letter-spacing: 0.02em;
+  color: var(--color-ink);
+}
+.nls-logo em { color: var(--color-ink); }
+.nls-header .btn { padding: 0.75rem 1.5rem; font-size: 0.8125rem; }
+@media (max-width: 560px) {
+  .nls-header .cta-microcopy { display: none; }
+}
+
+/* ---------- 6. Hero ---------- */
+.nls-hero { position: relative; z-index: 0; padding-block: clamp(1.75rem, 3vw, 2.5rem) var(--space-section); overflow: hidden; }
+.nls-hero-inner { text-align: center; max-width: 46rem; margin-inline: auto; margin-bottom: clamp(2rem, 4vw, 3rem); }
+.nls-hero-title { font-size: var(--fs-hero); margin-block: 1.25rem; }
+.nls-hero-lede { font-size: var(--fs-body-lg); color: var(--color-ink-soft); max-width: 46ch; margin-inline: auto; margin-bottom: 2rem; }
+
+.nls-video-frame {
+  position: relative;
+  max-width: 100%;
+  margin-inline: auto;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 40px 80px -30px rgba(28, 26, 22, 0.45);
+  background: var(--color-ink);
+}
+.nls-video-frame img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  opacity: 0.75;
+}
+.nls-video-frame-scrim {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(28,26,22,0.15) 0%, rgba(28,26,22,0.55) 100%);
+}
+.nls-video-play {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 4.5rem; height: 4.5rem; border-radius: 50%;
+  background: var(--color-bg);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 20px 40px -16px rgba(0,0,0,0.5);
+  transition: transform var(--dur-fast) var(--ease-editorial);
+}
+.nls-video-play svg { width: 1.5rem; height: 1.5rem; color: var(--color-ink); margin-left: 3px; }
+.nls-video-frame:hover .nls-video-play { transform: translate(-50%, -50%) scale(1.08); }
+.nls-video-caption {
+  position: absolute; left: 1.5rem; bottom: 1.5rem;
+  color: var(--color-bg); font-size: 0.8125rem; letter-spacing: 0.05em; text-transform: uppercase;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.nls-video-caption::before { content: ""; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--color-accent); animation: nlsPulse 1.8s ease-in-out infinite; }
+@keyframes nlsPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+/* ---------- 7. Why This Bootcamp ---------- */
+.nls-why { position: relative; z-index: 0; overflow: hidden; padding-block: var(--space-section); }
+.nls-why > .container { position: relative; z-index: 1; }
+.nls-why-pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.5rem, 3vw, 2.5rem); margin-top: clamp(2.5rem, 5vw, 3.5rem); }
+.nls-pillar { padding: clamp(1.75rem, 3vw, 2.25rem); background: var(--color-surface); border: 1px solid var(--color-line); border-radius: var(--radius-md); }
+.nls-pillar-icon {
+  width: 2.75rem; height: 2.75rem; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--color-ink); color: var(--color-accent);
+  margin-bottom: 1.25rem;
+}
+.nls-pillar-icon svg { width: 1.3rem; height: 1.3rem; }
+.nls-pillar h3 { font-size: 1.1875rem; margin-bottom: 0.5rem; }
+.nls-pillar p { color: var(--color-ink-soft); font-size: 0.9375rem; }
+
+/* ---------- 8. Problems ---------- */
+.nls-problems { position: relative; z-index: 0; overflow: hidden; padding-block: var(--space-section); background: var(--color-bg-alt); }
+.nls-problems > .container { position: relative; z-index: 1; }
+.nls-problems-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: clamp(2rem, 4vw, 3rem); }
+.nls-problem {
+  display: flex; gap: 1rem; align-items: flex-start;
+  padding: 1.5rem; background: var(--color-surface); border: 1px solid var(--color-line); border-radius: var(--radius-md);
+}
+.nls-problem-icon {
+  flex-shrink: 0; width: 2rem; height: 2rem; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--color-accent-deep); color: var(--color-accent-deep);
+}
+.nls-problem-icon svg { width: 1rem; height: 1rem; }
+.nls-problem p { font-size: 0.9375rem; color: var(--color-ink); line-height: 1.6; }
+
+/* ---------- 9. Transformation ---------- */
+.nls-transformation { position: relative; z-index: 0; overflow: hidden; padding-block: var(--space-section); }
+.nls-transformation > .container { position: relative; z-index: 1; }
+.nls-transformation-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem 2rem; margin-top: clamp(2rem, 4vw, 3rem); }
+.nls-outcome { display: flex; gap: 1rem; align-items: flex-start; }
+.nls-outcome-icon {
+  flex-shrink: 0; width: 2.25rem; height: 2.25rem; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--color-accent-soft); color: var(--color-accent-deep);
+}
+.nls-outcome-icon svg { width: 1.1rem; height: 1.1rem; }
+.nls-outcome p { font-size: 1rem; color: var(--color-ink); line-height: 1.6; padding-top: 0.25rem; }
+
+/* ---------- 10. What's Included ---------- */
+.nls-included { position: relative; z-index: 0; overflow: hidden; padding-block: var(--space-section); background: var(--color-ink); color: var(--color-bg); }
+.nls-included > .container { position: relative; z-index: 1; }
+.nls-included .eyebrow { color: var(--color-accent); }
+.nls-included h2 { color: var(--color-bg); }
+.nls-included .section-lede { color: rgba(250, 246, 239, 0.72); }
+.nls-included-list { display: flex; flex-direction: column; margin-top: clamp(2rem, 4vw, 3rem); }
+.nls-included-item {
+  display: grid; grid-template-columns: 3.5rem 1fr;
+  gap: 1.25rem; padding-block: 1.75rem;
+  border-top: 1px solid rgba(250, 246, 239, 0.14);
+}
+.nls-included-item:last-child { border-bottom: 1px solid rgba(250, 246, 239, 0.14); }
+.nls-included-num {
+  font-family: var(--font-display); font-style: italic; font-weight: 600;
+  font-size: 1.75rem;
+  background: var(--color-accent-shimmer);
+  background-clip: text; -webkit-background-clip: text;
+  color: transparent; -webkit-text-fill-color: transparent;
+}
+.nls-included-item h3 { color: var(--color-bg); font-size: 1.25rem; margin-bottom: 0.4rem; }
+.nls-included-item p { color: rgba(250, 246, 239, 0.72); font-size: 0.9375rem; max-width: 52ch; }
+
+/* ---------- 11. Timeline ---------- */
+.nls-timeline-section { position: relative; z-index: 0; overflow: hidden; padding-block: var(--space-section); }
+.nls-timeline-section > .container { position: relative; z-index: 1; }
+.nls-timeline { position: relative; max-width: 42rem; margin-inline: auto; padding-left: 3rem; }
+.nls-timeline::before {
+  content: ""; position: absolute; left: 0.9rem; top: 0.5rem; bottom: 0.5rem; width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--color-line-strong) 6%, var(--color-line-strong) 94%, transparent);
+}
+.nls-timeline-item { position: relative; padding-bottom: 2.5rem; }
+.nls-timeline-item:last-child { padding-bottom: 0; }
+.nls-timeline-marker {
+  position: absolute; left: -3rem; top: 0;
+  width: 1.9rem; height: 1.9rem; border-radius: 50%;
+  background: var(--color-bg); border: 1px solid var(--color-line-strong);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--color-accent-deep);
+}
+.nls-timeline-marker svg { width: 0.95rem; height: 0.95rem; }
+.nls-timeline-label { font-family: var(--font-display); font-style: italic; font-size: 1.0625rem; color: var(--color-accent-deep); margin-bottom: 0.25rem; }
+.nls-timeline-item h3 { font-size: 1.1875rem; margin-bottom: 0.4rem; }
+.nls-timeline-item p { color: var(--color-ink-soft); font-size: 0.9375rem; }
+
+/* ---------- 12. Testimonials ---------- */
+.nls-testimonials { position: relative; z-index: 0; overflow: hidden; padding-block: var(--space-section); background: var(--color-bg-alt); }
+.nls-testimonials > .container { position: relative; z-index: 1; }
+.nls-testimonials-grid { columns: 3 16rem; column-gap: 1.5rem; margin-top: clamp(2rem, 4vw, 3rem); }
+.nls-testimonial {
+  break-inside: avoid; margin-bottom: 1.5rem;
+  position: relative;
+  background: var(--color-surface); border: 1px solid var(--color-line); border-radius: var(--radius-md);
+  padding: 1.75rem; display: flex; flex-direction: column; gap: 1rem;
+  box-shadow: 0 18px 36px -26px rgba(28, 26, 22, 0.3);
+  transition: transform var(--dur-fast) var(--ease-editorial), box-shadow var(--dur-fast) var(--ease-editorial);
+}
+.nls-testimonial:hover { transform: translateY(-4px); box-shadow: 0 24px 44px -22px rgba(28, 26, 22, 0.35); }
+.nls-testimonial-mark {
+  position: absolute; top: 1.25rem; right: 1.5rem;
+  font-family: var(--font-display); font-style: italic; font-size: 2.75rem; line-height: 1;
+  color: var(--color-accent-soft);
+}
+.nls-testimonial-stars { display: flex; gap: 0.15rem; color: var(--color-accent-deep); }
+.nls-testimonial-stars svg { width: 0.9rem; height: 0.9rem; }
+.nls-testimonial p.nls-testimonial-quote { font-size: 0.9375rem; color: var(--color-ink); line-height: 1.65; flex-grow: 1; position: relative; z-index: 1; }
+.nls-testimonial-person { display: flex; align-items: center; gap: 0.75rem; }
+.nls-testimonial-avatar {
+  flex-shrink: 0; width: 2.5rem; height: 2.5rem; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--color-ink); color: var(--color-accent);
+  font-family: var(--font-display); font-style: italic; font-weight: 600; font-size: 0.9375rem;
+}
+.nls-testimonial-name { font-size: 0.875rem; font-weight: 600; color: var(--color-ink); }
+.nls-testimonial-role { font-size: 0.8125rem; color: var(--color-ink-soft); }
+@media (max-width: 900px) { .nls-testimonials-grid { columns: 2 14rem; } }
+@media (max-width: 640px) { .nls-testimonials-grid { columns: 1; } }
+
+/* ---------- 13. About Onyema ---------- */
+.nls-about { position: relative; z-index: 0; overflow: hidden; padding-block: var(--space-section); }
+.nls-about > .container { position: relative; z-index: 1; }
+.nls-about-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+.nls-about-media { position: relative; aspect-ratio: 4 / 5; border-radius: var(--radius-md); overflow: hidden; box-shadow: 0 30px 60px -24px rgba(28,26,22,0.35); }
+.nls-about-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.nls-about-credentials { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.75rem; padding-top: 1.5rem; border-top: 1px solid var(--color-line); }
+.nls-about-credentials li { font-size: 0.9375rem; color: var(--color-ink-soft); display: flex; gap: 0.6rem; }
+.nls-about-credentials strong { color: var(--color-ink); font-weight: 600; }
+
+/* ---------- 14. FAQ ---------- */
+.nls-faq { position: relative; z-index: 0; overflow: hidden; padding-block: var(--space-section); background: var(--color-bg-alt); }
+.nls-faq > .container { position: relative; z-index: 1; }
+.nls-faq-list { max-width: 44rem; margin-inline: auto; }
+.nls-faq-item { border-bottom: 1px solid var(--color-line); }
+.nls-faq-trigger {
+  width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding-block: 1.5rem; background: none; border: none; text-align: left;
+  font-family: var(--font-display); font-size: 1.1875rem; color: var(--color-ink);
+}
+.nls-faq-icon { position: relative; flex-shrink: 0; width: 1.1rem; height: 1.1rem; }
+.nls-faq-icon::before, .nls-faq-icon::after { content: ""; position: absolute; background: var(--color-ink); transition: transform var(--dur-fast) var(--ease-editorial), opacity var(--dur-fast) var(--ease-editorial); }
+.nls-faq-icon::before { top: 50%; left: 0; width: 100%; height: 1px; transform: translateY(-50%); }
+.nls-faq-icon::after { left: 50%; top: 0; height: 100%; width: 1px; transform: translateX(-50%); }
+.nls-faq-trigger[aria-expanded="true"] .nls-faq-icon::after { opacity: 0; transform: translateX(-50%) rotate(90deg); }
+.nls-faq-answer { padding-bottom: 1.5rem; max-width: 58ch; }
+.nls-faq-answer p { color: var(--color-ink-soft); font-size: 0.9375rem; line-height: 1.7; }
+
+/* ---------- 15. Final CTA ---------- */
+.nls-final-cta { position: relative; overflow: hidden; padding-block: var(--space-section); background: var(--color-ink); text-align: center; }
+.nls-final-cta::before {
+  content: ""; position: absolute; top: 8%; left: 50%; width: 50rem; height: 50rem; transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(184,146,90,0.18) 0%, rgba(184,146,90,0) 65%);
+}
+.nls-final-cta-inner { position: relative; z-index: 1; max-width: 40rem; margin-inline: auto; }
+.nls-final-cta h2 { color: var(--color-bg); margin-bottom: 0.5rem; }
+.nls-final-cta .nls-final-lede { font-family: var(--font-display); font-style: italic; font-size: clamp(1.5rem, 3vw, 2.25rem); color: var(--color-accent); margin-bottom: 2rem; }
+.nls-final-cta-desc { color: rgba(250, 246, 239, 0.75); margin-bottom: 2.25rem; max-width: 42ch; margin-inline: auto; }
+.nls-final-cta-trust { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.6rem 1.75rem; margin-top: 2.25rem; }
+.nls-final-cta-trust-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8125rem; color: rgba(250, 246, 239, 0.65); }
+.nls-final-cta-trust-item svg { width: 1rem; height: 1rem; color: var(--color-accent); }
+.nls-final-cta .nls-floater { color: var(--color-accent); opacity: 0.22; }
+
+/* ---------- 16. Footer ---------- */
+.nls-footer { padding-block: 2.5rem; text-align: center; border-top: 1px solid var(--color-line); }
+.nls-footer p { font-size: 0.8125rem; color: var(--color-ink-faint); }
+.nls-footer a { color: var(--color-ink-soft); }
+.nls-footer a:hover { color: var(--color-accent-deep); }
+
+/* ---------- 17. Reveal animation ---------- */
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity var(--dur-slow) var(--ease-editorial), transform var(--dur-slow) var(--ease-editorial); }
+.reveal.is-visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+/* ---------- 18. Responsive ---------- */
+@media (max-width: 900px) {
+  .nls-why-pillars { grid-template-columns: 1fr; }
+  .nls-problems-grid { grid-template-columns: 1fr; }
+  .nls-transformation-grid { grid-template-columns: 1fr; }
+  .nls-about-grid { grid-template-columns: 1fr; }
+  .nls-about-media { order: -1; max-width: 22rem; margin-inline: auto; }
+}
+@media (max-width: 640px) {
+  .nls-included-item { grid-template-columns: 2.5rem 1fr; }
+  .btn-lg { padding: 1.1rem 2rem; font-size: 0.9375rem; }
+}
